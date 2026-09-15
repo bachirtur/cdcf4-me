@@ -1,0 +1,2514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techno 4ème — Cahier des charges & Accessibilité</title>
+<meta name="description" content="Site pédagogique interactif de Technologie 4ème — Chapitre 1 : Exprimer un besoin par un cahier des charges. Comment rendre un espace accessible à tous.">
+<style>
+/* ============================================
+   Techno 4ème — Cahier des charges
+   Design system moderne & engageant
+============================================ */
+
+:root {
+  --c-vert: #43a047;
+  --c-vert-light: #66bb6a;
+  --c-vert-bg: #e8f5e9;
+  --c-magenta: #e91e63;
+  --c-magenta-light: #ec407a;
+  --c-magenta-bg: #fce4ec;
+  --c-cyan: #00acc1;
+  --c-cyan-light: #26c6da;
+  --c-cyan-bg: #e0f7fa;
+  --c-orange: #fb8c00;
+  --c-orange-light: #ffa726;
+  --c-orange-bg: #fff3e0;
+  --c-violet: #8e24aa;
+  --c-violet-light: #ab47bc;
+  --c-violet-bg: #f3e5f5;
+  --c-bleu: #1e88e5;
+  --c-bleu-bg: #e3f2fd;
+  --c-jaune: #fdd835;
+  --c-jaune-bg: #fffde7;
+
+  --c-text: #1f2937;
+  --c-text-soft: #4b5563;
+  --c-text-muted: #6b7280;
+  --c-bg: #f8fafc;
+  --c-card: #ffffff;
+  --c-border: #e5e7eb;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.10);
+  --shadow-glow: 0 0 0 4px rgba(67, 160, 71, 0.15);
+
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 28px;
+
+  --t-fast: 180ms ease;
+  --t-med: 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--c-text);
+  background: var(--c-bg);
+  line-height: 1.6;
+  min-height: 100vh;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Fredoka', system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--c-text);
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); }
+h3 { font-size: 1.15rem; }
+
+p { color: var(--c-text-soft); }
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============== HEADER ============== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--c-border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform var(--t-fast);
+}
+.brand:hover { transform: translateY(-1px); }
+
+.brand-logo {
+  font-size: 32px;
+  background: linear-gradient(135deg, var(--c-vert-light), var(--c-cyan-light));
+  width: 50px; height: 50px;
+  display: grid; place-items: center;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-title { font-family: 'Fredoka'; font-weight: 700; font-size: 1.05rem; color: var(--c-text); }
+.brand-sub { font-size: 0.78rem; color: var(--c-text-muted); }
+
+.main-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  border: none;
+  background: transparent;
+  color: var(--c-text-soft);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 9px 14px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all var(--t-fast);
+  position: relative;
+}
+.nav-btn:hover {
+  background: var(--c-vert-bg);
+  color: var(--c-vert);
+}
+.nav-btn.active {
+  background: linear-gradient(135deg, var(--c-vert), var(--c-vert-light));
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+.nav-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 8px solid var(--c-vert-light);
+}
+
+.burger { display: none; }
+
+/* ============== PAGES ============== */
+.page { display: none; padding-bottom: 80px; animation: fadeIn 0.4s ease; }
+.page.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============== HERO ACCUEIL ============== */
+.hero {
+  background: linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 50%, #fce4ec 100%);
+  padding: 60px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(67, 160, 71, 0.15), transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -150px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(233, 30, 99, 0.12), transparent 70%);
+  border-radius: 50%;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.pill {
+  display: inline-block;
+  background: white;
+  color: var(--c-vert);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 7px 16px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 20px;
+}
+.hl { color: var(--c-vert); }
+.hl-magenta { color: var(--c-magenta); }
+.hl-cyan { color: var(--c-cyan); }
+
+.lead {
+  font-size: 1.1rem;
+  color: var(--c-text-soft);
+  margin-bottom: 28px;
+  max-width: 560px;
+}
+
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+
+.btn {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 13px 22px;
+  border-radius: var(--r-md);
+  border: none;
+  cursor: pointer;
+  transition: all var(--t-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--c-vert), var(--c-vert-light));
+  color: white;
+  box-shadow: 0 6px 18px rgba(67, 160, 71, 0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(67, 160, 71, 0.4); }
+.btn-primary:active { transform: translateY(0); }
+.btn-ghost {
+  background: white;
+  color: var(--c-text);
+  border: 2px solid var(--c-border);
+}
+.btn-ghost:hover { border-color: var(--c-vert); color: var(--c-vert); }
+
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.meta-card {
+  background: white;
+  padding: 16px;
+  border-radius: var(--r-md);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.meta-num { font-family: 'Fredoka'; font-size: 1.8rem; font-weight: 700; color: var(--c-vert); }
+.meta-lbl { font-size: 0.8rem; color: var(--c-text-muted); }
+
+.hero-illu {
+  display: grid;
+  gap: 16px;
+}
+.illu-card {
+  background: white;
+  border-radius: var(--r-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform var(--t-med);
+}
+.illu-card:hover { transform: translateY(-4px) rotate(-1deg); }
+.illu-card:nth-child(2) { transform: translateX(20px); }
+.illu-card:nth-child(2):hover { transform: translateX(20px) translateY(-4px); }
+.illu-card:nth-child(3) { transform: translateX(-10px); }
+.illu-card:nth-child(3):hover { transform: translateX(-10px) translateY(-4px); }
+.illu-emoji { font-size: 40px; flex-shrink: 0; }
+.illu-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--c-magenta);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.illu-cap { font-size: 0.92rem; color: var(--c-text-soft); font-weight: 500; }
+
+/* ============== ROADMAP ============== */
+.roadmap { padding: 70px 24px; }
+.roadmap h2 { margin-bottom: 32px; }
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.rm-card {
+  background: white;
+  border-radius: var(--r-lg);
+  padding: 24px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  border: 2px solid transparent;
+  transition: all var(--t-med);
+  position: relative;
+}
+.rm-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--c-vert-light);
+}
+.rm-step {
+  display: inline-block;
+  background: var(--c-vert-bg);
+  color: var(--c-vert);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.rm-emoji { font-size: 36px; margin-bottom: 8px; }
+.rm-card h3 { margin-bottom: 8px; }
+.rm-card p { font-size: 0.92rem; }
+
+/* ============== OBJECTIVES ============== */
+.objectives { padding: 40px 24px 80px; }
+.objectives h2 { margin-bottom: 24px; }
+.obj-list {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.obj-list li {
+  background: white;
+  padding: 16px 20px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--c-vert-light);
+  transition: transform var(--t-fast);
+}
+.obj-list li:hover { transform: translateX(6px); }
+.obj-list span { font-size: 1.3rem; }
+
+/* ============== PAGE HEAD ============== */
+.page-head { padding: 50px 0 30px; }
+.section-tag {
+  display: inline-block;
+  font-family: 'Fredoka';
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 6px 18px;
+  border-radius: 999px;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+.tag-observer { background: var(--c-vert); color: white; }
+.tag-resoudre { background: var(--c-magenta); color: white; }
+.tag-apprendre { background: var(--c-cyan); color: white; }
+.tag-entrainer { background: var(--c-orange); color: white; }
+.tag-brevet { background: var(--c-violet); color: white; }
+
+.page-head h1 { margin-bottom: 14px; }
+.page-head .lead { margin-bottom: 0; }
+
+/* ============== COMPETENCES ============== */
+.competences {
+  background: linear-gradient(135deg, #fff3e0, #fffde7);
+  border: 2px dashed var(--c-orange);
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+  margin-bottom: 24px;
+}
+.comp-title { font-weight: 700; color: var(--c-orange); margin-bottom: 8px; font-size: 0.95rem; }
+.competences ul { list-style: none; display: grid; gap: 6px; }
+.competences li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.92rem;
+}
+.dot {
+  width: 8px; height: 8px;
+  background: var(--c-orange);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.comp-bar {
+  background: var(--c-orange-bg);
+  border-radius: var(--r-md);
+  padding: 16px 22px;
+  margin-bottom: 28px;
+  border-left: 4px solid var(--c-orange);
+}
+.cb-title { font-weight: 700; color: var(--c-orange); margin-bottom: 6px; }
+.comp-bar ul { list-style: none; display: grid; gap: 4px; font-size: 0.92rem; }
+
+/* ============== SITUATION / PROBLEME BLOCKS ============== */
+.situation-block, .problem-block {
+  background: white;
+  border-radius: var(--r-lg);
+  padding: 24px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  border-left: 6px solid;
+}
+.situation-block { border-color: var(--c-vert); }
+.problem-block { border-color: var(--c-magenta); }
+
+.bg-tag {
+  font-family: 'Fredoka';
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: var(--r-sm);
+  color: white;
+  font-size: 0.85rem;
+  align-self: start;
+}
+.bg-observer { background: var(--c-vert); }
+.bg-problem { background: var(--c-magenta); }
+.bg-content p { margin-bottom: 6px; }
+.bg-content p:last-child { margin-bottom: 0; }
+
+/* Building illustration */
+.situation-illu { min-width: 160px; }
+.illu-building {
+  width: 140px;
+  height: 200px;
+  background: linear-gradient(180deg, #cfd8dc, #90a4ae);
+  border-radius: var(--r-md);
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.floor {
+  flex: 1;
+  background: #eceff1;
+  border-top: 2px solid #b0bec5;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+}
+.floor-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--c-text-soft);
+}
+.window {
+  position: absolute;
+  top: 15%; left: 50%;
+  transform: translateX(-50%);
+  width: 50px; height: 50px;
+  background: var(--c-cyan-bg);
+  border: 2px solid var(--c-cyan);
+  border-radius: 4px;
+}
+.elevator-shaft {
+  position: absolute;
+  inset: 0;
+}
+.elevator-cabin {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 60%; height: 60%;
+  background: linear-gradient(180deg, var(--c-jaune), var(--c-orange-light));
+  border: 2px solid var(--c-orange);
+  border-radius: 4px 4px 0 0;
+}
+.elevator-door {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 30%; height: 35%;
+  background: var(--c-magenta);
+  border: 1px solid var(--c-magenta);
+}
+
+/* ============== CONTENT CARD ============== */
+.content-card {
+  background: white;
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sub-head {
+  font-size: 1.15rem;
+  margin: 24px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sub-head.rose { color: var(--c-magenta); }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.mt-2 { margin-top: 18px; }
+
+.bullets { padding-left: 20px; }
+.bullets li { margin-bottom: 10px; }
+
+/* Diagramme cas utilisation */
+.diagramme-cas {
+  background: var(--c-vert-bg);
+  border: 2px dashed var(--c-vert-light);
+  border-radius: var(--r-md);
+  padding: 22px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.diagramme-cas.alt { background: var(--c-magenta-bg); border-color: var(--c-magenta-light); }
+
+.dc-user {
+  text-align: center;
+  flex-shrink: 0;
+}
+.dc-fig {
+  font-size: 64px;
+  line-height: 1;
+}
+.dc-cap {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--c-text-soft);
+  margin-top: 4px;
+}
+
+.dc-bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.bubble {
+  background: white;
+  border: 2px solid var(--c-vert-light);
+  border-radius: var(--r-md);
+  padding: 12px 16px;
+  font-size: 0.92rem;
+  position: relative;
+}
+.bubble.bubble-obj { font-weight: 700; color: var(--c-vert); }
+.bubble.bubble-act { border-color: var(--c-magenta-light); color: var(--c-magenta); }
+.bubble.bubble-obj.alt { color: var(--c-magenta); border-color: var(--c-magenta); }
+.bubble.bubble-act.alt { color: var(--c-orange); border-color: var(--c-orange); }
+
+.diagramme-cas.drone .bubble.bubble-obj.alt { color: var(--c-violet); border-color: var(--c-violet); }
+.diagramme-cas.drone .bubble.bubble-act.alt { color: var(--c-cyan); border-color: var(--c-cyan); }
+
+/* ============== CALLOUTS ============== */
+.callout {
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+  margin: 18px 0;
+  border-left: 5px solid;
+  position: relative;
+}
+.callout-tag {
+  font-family: 'Fredoka';
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.callout p { color: var(--c-text); }
+.callout-magenta { background: var(--c-magenta-bg); border-color: var(--c-magenta); }
+.callout-magenta .callout-tag { color: var(--c-magenta); }
+.callout-yellow { background: var(--c-jaune-bg); border-color: var(--c-orange); }
+.callout-yellow .callout-tag { color: var(--c-orange); }
+.callout-cyan { background: var(--c-cyan-bg); border-color: var(--c-cyan); }
+.callout-cyan .callout-tag { color: var(--c-cyan); }
+.callout-pink { background: var(--c-magenta-bg); border-color: var(--c-magenta-light); }
+.callout-pink .callout-tag { color: var(--c-magenta); }
+
+/* ============== TABLES ============== */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-border);
+  margin: 14px 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 0.92rem;
+}
+.data-table th {
+  background: var(--c-vert);
+  color: white;
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.data-table td {
+  padding: 12px 16px;
+  border-top: 1px solid var(--c-border);
+  vertical-align: top;
+}
+.data-table tr:nth-child(even) { background: #f8fafc; }
+.data-table tr:hover { background: var(--c-vert-bg); }
+.data-table.compact { font-size: 0.85rem; }
+.data-table.compact th, .data-table.compact td { padding: 9px 12px; }
+
+.data-table.highlight .hl-row { background: #fff9c4 !important; }
+.data-table.highlight mark { background: var(--c-jaune); padding: 1px 4px; border-radius: 3px; }
+.legend-row td { background: var(--c-jaune-bg) !important; font-style: italic; font-size: 0.85rem; }
+.legend-sq {
+  display: inline-block;
+  width: 14px; height: 14px;
+  background: var(--c-jaune);
+  vertical-align: middle;
+  margin-right: 4px;
+  border-radius: 3px;
+}
+
+.caption {
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--c-text-muted);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* ============== ANALYSE BOX ============== */
+.analyse-box {
+  background: linear-gradient(135deg, var(--c-jaune-bg), #fff);
+  border: 2px solid var(--c-orange);
+  border-radius: var(--r-lg);
+  padding: 24px 28px;
+  margin: 30px 0;
+}
+.ab-head {
+  font-family: 'Fredoka';
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--c-orange);
+  margin-bottom: 14px;
+}
+.ab-list { padding-left: 24px; }
+.ab-list li { margin-bottom: 8px; font-size: 0.95rem; color: var(--c-text); }
+
+/* ============== INFO BLOCK ============== */
+.info-block {
+  background: var(--c-bleu-bg);
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+  border-left: 4px solid var(--c-bleu);
+}
+.info-block p { color: var(--c-text); margin-bottom: 8px; }
+.info-block p:last-child { margin-bottom: 0; }
+
+/* ============== IMAGES PLACEHOLDERS ============== */
+.img-placeholder {
+  background: linear-gradient(135deg, var(--c-vert-bg), var(--c-cyan-bg));
+  border: 2px dashed var(--c-vert-light);
+  border-radius: var(--r-md);
+  padding: 32px 22px;
+  text-align: center;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.img-placeholder.modern { background: linear-gradient(135deg, #f3e5f5, #e0f7fa); border-color: var(--c-violet-light); }
+.img-placeholder.blue { background: linear-gradient(135deg, var(--c-bleu-bg), #e8eaf6); border-color: var(--c-bleu); }
+.img-placeholder.purple { background: linear-gradient(135deg, #ede7f6, #e0f7fa); border-color: var(--c-violet-light); }
+.img-placeholder.green { background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-color: var(--c-vert); }
+.img-placeholder.red { background: linear-gradient(135deg, #ffebee, #fce4ec); border-color: var(--c-magenta); }
+
+.ip-emoji { font-size: 64px; }
+.ip-cap {
+  font-size: 0.88rem;
+  color: var(--c-text-soft);
+  font-style: italic;
+  max-width: 280px;
+}
+
+/* ============== METHODE ============== */
+.methode-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px dashed var(--c-magenta-bg);
+}
+.methode-tag {
+  background: linear-gradient(135deg, var(--c-magenta), var(--c-magenta-light));
+  color: white;
+  padding: 8px 16px;
+  border-radius: var(--r-md);
+  font-family: 'Fredoka';
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.demarche-box, .conseil-box {
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+}
+.demarche-box { background: var(--c-cyan-bg); border: 2px solid var(--c-cyan); }
+.conseil-box { background: var(--c-jaune-bg); border: 2px dashed var(--c-orange); }
+.demarche-head, .conseil-head {
+  font-family: 'Fredoka';
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+.demarche-head { color: var(--c-cyan); }
+.conseil-head { color: var(--c-orange); }
+
+.demarche-steps { display: grid; gap: 8px; }
+.ds {
+  background: white;
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  font-size: 0.92rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.ds-num {
+  background: var(--c-cyan);
+  color: white;
+  width: 24px; height: 24px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ============== VERIFIE BOX ============== */
+.verifie-box {
+  background: linear-gradient(135deg, #fce4ec, #f3e5f5);
+  border: 2px solid var(--c-magenta);
+  border-radius: var(--r-lg);
+  padding: 24px 28px;
+  margin: 30px 0;
+}
+.vb-head {
+  font-family: 'Fredoka';
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--c-magenta);
+  margin-bottom: 14px;
+}
+.vb-list { padding-left: 22px; }
+.vb-list li {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: var(--c-text);
+}
+.ref {
+  display: inline-block;
+  background: var(--c-cyan-bg);
+  color: var(--c-cyan);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 6px;
+}
+
+.mini-projet {
+  background: white;
+  border: 2px dashed var(--c-orange);
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+}
+.mp-head {
+  font-family: 'Fredoka';
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--c-orange);
+  margin-bottom: 8px;
+}
+
+/* ============== BLOC HEAD ============== */
+.bloc-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--c-border);
+}
+.bloc-num {
+  background: var(--c-vert);
+  color: white;
+  padding: 6px 14px;
+  border-radius: var(--r-md);
+  font-family: 'Fredoka';
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* ============== APPRENDRE : RIBBON ============== */
+.ribbon-head {
+  background: linear-gradient(90deg, var(--c-cyan), var(--c-cyan-light));
+  color: white;
+  padding: 12px 22px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: -10px -10px 22px;
+}
+.ribbon-head h2 { color: white; margin: 0; }
+.ribbon-head span { font-size: 1.6rem; }
+
+/* ============== SCHEMA FLOW ============== */
+.schema-flow {
+  background: var(--c-magenta-bg);
+  border-radius: var(--r-md);
+  padding: 22px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.sf-node {
+  background: white;
+  padding: 10px 18px;
+  border-radius: var(--r-md);
+  font-weight: 600;
+  font-size: 0.92rem;
+  box-shadow: var(--shadow-sm);
+}
+.sf-node.primary { background: var(--c-magenta); color: white; }
+.sf-node.alt { background: var(--c-cyan); color: white; }
+.sf-arrow { color: var(--c-magenta); font-weight: 700; font-size: 1.2rem; }
+.sf-arrow-down { color: var(--c-cyan); font-weight: 700; font-size: 1.2rem; align-self: flex-end; padding: 0 10px; }
+
+/* ============== CONTRAINTES GRID ============== */
+.contraintes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.ct-card {
+  background: white;
+  border: 2px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  transition: all var(--t-fast);
+}
+.ct-card:hover {
+  border-color: var(--c-magenta);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.ct-emoji { font-size: 1.4rem; flex-shrink: 0; }
+.ct-card strong { color: var(--c-magenta); display: block; margin-bottom: 2px; }
+
+/* ============== DEFS ============== */
+.def-list { padding-left: 20px; }
+.def-list li { margin-bottom: 8px; font-size: 0.92rem; }
+
+/* ============== MINI TABLE ============== */
+.mini-table {
+  background: var(--c-jaune-bg);
+  border-radius: var(--r-md);
+  padding: 18px;
+  margin: 18px 0;
+}
+.mini-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+.mini-table th {
+  background: var(--c-orange);
+  color: white;
+  padding: 10px 14px;
+  text-align: left;
+}
+.mini-table td {
+  padding: 10px 14px;
+  border-top: 1px solid var(--c-border);
+}
+
+.mt-anno {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--c-text-muted);
+}
+
+/* ============== PROCESS FLOW ============== */
+.process-flow {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0;
+  align-items: center;
+  margin: 24px 0;
+}
+.pf-step {
+  background: white;
+  border: 3px solid var(--c-cyan);
+  border-radius: var(--r-md);
+  padding: 14px 12px;
+  text-align: center;
+  position: relative;
+  grid-column: span 9 / span 9;
+  margin-bottom: 0;
+}
+.pf-step .pf-num {
+  background: var(--c-cyan);
+  color: white;
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  font-family: 'Fredoka';
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 auto 8px;
+}
+.pf-title { font-weight: 700; margin-bottom: 4px; font-size: 0.95rem; }
+.pf-desc { font-size: 0.82rem; color: var(--c-text-muted); }
+.pf-icon { font-size: 1.6rem; margin-top: 6px; }
+.pf-arrow {
+  text-align: center;
+  font-size: 1.6rem;
+  color: var(--c-cyan);
+  grid-column: span 9 / span 9;
+  padding: 4px 0;
+}
+
+/* ============== J'AI APPRIS ============== */
+.j-appris {
+  background: linear-gradient(135deg, var(--c-vert-bg), var(--c-jaune-bg));
+  border-radius: var(--r-md);
+  padding: 22px;
+  margin-top: 20px;
+}
+.ja-head {
+  font-family: 'Fredoka';
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--c-vert);
+  margin-bottom: 10px;
+}
+.ja-list { padding-left: 22px; }
+.ja-list li { margin-bottom: 6px; font-size: 0.92rem; }
+
+/* ============== EXERCICES ============== */
+.exo-card {
+  background: white;
+  border-radius: var(--r-lg);
+  padding: 28px;
+  margin-bottom: 26px;
+  box-shadow: var(--shadow-sm);
+  border-top: 6px solid var(--c-orange);
+}
+.exo-card:nth-child(odd) { border-top-color: var(--c-orange); }
+
+.exo-head { margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px dashed var(--c-orange-bg); }
+.exo-tag {
+  background: var(--c-orange);
+  color: white;
+  padding: 5px 12px;
+  border-radius: var(--r-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'Fredoka';
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.exo-tag-use { background: var(--c-magenta); }
+
+.exo-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0; }
+
+.exo-result {
+  background: var(--c-vert-bg);
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+  margin-top: 14px;
+  display: none;
+  border-left: 4px solid var(--c-vert);
+}
+.exo-result.show { display: block; animation: fadeIn 0.4s ease; }
+.exo-result h3 { color: var(--c-vert); margin-bottom: 10px; }
+.exo-result .score-big {
+  font-family: 'Fredoka';
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--c-vert);
+  text-align: center;
+  margin: 10px 0;
+}
+
+.qcm-list { display: grid; gap: 14px; }
+.qcm-question {
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  transition: border-color var(--t-fast);
+}
+.qcm-question.correct { border-color: var(--c-vert); background: var(--c-vert-bg); }
+.qcm-question.wrong { border-color: var(--c-magenta); background: var(--c-magenta-bg); }
+.qcm-q-text { font-weight: 600; margin-bottom: 10px; }
+.qcm-options { display: grid; gap: 6px; }
+.qcm-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  background: white;
+  border: 1px solid var(--c-border);
+  transition: all var(--t-fast);
+}
+.qcm-option:hover { border-color: var(--c-orange); background: var(--c-orange-bg); }
+.qcm-option input[type="radio"] { accent-color: var(--c-orange); }
+.qcm-option.selected { border-color: var(--c-orange); background: var(--c-orange-bg); }
+.qcm-option.is-correct { background: var(--c-vert-bg); border-color: var(--c-vert); font-weight: 600; }
+.qcm-option.is-wrong { background: var(--c-magenta-bg); border-color: var(--c-magenta); }
+.qcm-explain {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: white;
+  border-radius: var(--r-sm);
+  font-size: 0.88rem;
+  border-left: 3px solid var(--c-cyan);
+  display: none;
+}
+.qcm-question.show-explain .qcm-explain { display: block; }
+
+.feedback {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.feedback.ok { background: var(--c-vert); color: white; }
+.feedback.ko { background: var(--c-magenta); color: white; }
+
+/* Open questions */
+.questions-block { margin: 16px 0; }
+.open-question {
+  background: var(--c-bg);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--c-orange);
+}
+.open-q-text { font-weight: 600; margin-bottom: 6px; }
+.open-q-hint { font-size: 0.85rem; color: var(--c-text-muted); font-style: italic; }
+
+.correction-block {
+  background: var(--c-cyan-bg);
+  border: 2px solid var(--c-cyan);
+  border-radius: var(--r-md);
+  padding: 20px 24px;
+  margin-top: 16px;
+  display: none;
+}
+.correction-block.show { display: block; animation: fadeIn 0.4s ease; }
+.corr-head {
+  font-family: 'Fredoka';
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--c-cyan);
+  margin-bottom: 14px;
+}
+.corr-step {
+  background: white;
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--c-cyan);
+}
+.corr-step-num {
+  display: inline-block;
+  background: var(--c-cyan);
+  color: white;
+  font-family: 'Fredoka';
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  margin-bottom: 6px;
+}
+.corr-step-title { font-weight: 700; margin-bottom: 4px; color: var(--c-cyan); }
+.corr-step-body { font-size: 0.92rem; line-height: 1.55; }
+.corr-step-body p { margin-bottom: 6px; }
+
+.correction-brev { display: none; margin-top: 16px; }
+.correction-brev.show { display: block; animation: fadeIn 0.4s ease; }
+
+.score-final { text-align: center; }
+
+/* ============== BREVET ============== */
+.brevet-questions {
+  background: var(--c-violet-bg);
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+  margin-bottom: 18px;
+  border-left: 5px solid var(--c-violet);
+}
+.bq-head {
+  font-family: 'Fredoka';
+  font-weight: 700;
+  color: var(--c-violet);
+  margin-bottom: 10px;
+}
+.brevet-questions ol { padding-left: 22px; }
+.brevet-questions li { margin-bottom: 8px; font-size: 0.95rem; }
+
+.vos-ressources {
+  margin-top: 18px;
+}
+.vr-head {
+  background: linear-gradient(90deg, var(--c-violet), var(--c-violet-light));
+  color: white;
+  padding: 12px 22px;
+  border-radius: var(--r-md);
+  font-family: 'Fredoka';
+  font-weight: 700;
+  display: inline-block;
+}
+
+/* ============== FOOTER ============== */
+.site-footer {
+  background: linear-gradient(135deg, #1f2937, #374151);
+  color: white;
+  padding: 50px 0 24px;
+  margin-top: 60px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 30px;
+}
+.footer-grid strong { display: block; margin-bottom: 6px; font-family: 'Fredoka'; }
+.footer-grid p { color: #d1d5db; font-size: 0.9rem; }
+.footer-bottom {
+  border-top: 1px solid #4b5563;
+  padding-top: 18px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+/* ============== RESPONSIVE ============== */
+@media (max-width: 960px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .nav-btn { font-size: 0.82rem; padding: 7px 10px; }
+}
+
+@media (max-width: 720px) {
+  .main-nav { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: white; padding: 16px; box-shadow: var(--shadow-md); }
+  .main-nav.open { display: flex; }
+  .burger { display: block; margin-left: auto; background: var(--c-vert); color: white; border: none; padding: 8px 14px; border-radius: var(--r-sm); cursor: pointer; font-size: 1.4rem; }
+  .situation-block, .problem-block { grid-template-columns: 1fr; }
+  .process-flow { grid-template-columns: 1fr; }
+  .pf-step, .pf-arrow { grid-column: span 1 / span 1; }
+  .mt-anno { grid-template-columns: 1fr; }
+}
+
+/* ============== UTILS ============== */
+mark { background: var(--c-jaune); padding: 1px 4px; border-radius: 3px; }
+::selection { background: var(--c-jaune); color: var(--c-text); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============== HEADER & NAV ============== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#" class="brand" data-nav="accueil">
+      <span class="brand-logo">⚙️</span>
+      <div class="brand-text">
+        <div class="brand-title">Techno 4ème</div>
+        <div class="brand-sub">Chapitre 1 — Cahier des charges</div>
+      </div>
+    </a>
+    <nav class="main-nav">
+      <button class="nav-btn active" data-nav="accueil">🏠 Accueil</button>
+      <button class="nav-btn" data-nav="observer">🔍 Observer</button>
+      <button class="nav-btn" data-nav="etude">📐 Étude</button>
+      <button class="nav-btn" data-nav="resoudre">✏️ Résoudre</button>
+      <button class="nav-btn" data-nav="apprendre">💡 Apprendre</button>
+      <button class="nav-btn" data-nav="entrainer">🎯 S'entraîner</button>
+      <button class="nav-btn" data-nav="brevet">🎓 Vers le brevet</button>
+    </nav>
+    <button class="burger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- ============== PAGE: ACCUEIL ============== -->
+<main id="page-accueil" class="page active">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="pill">📚 Chapitre 1 · Technologie 4ème</span>
+        <h1>Exprimer un besoin<br>par un <span class="hl">cahier des charges</span></h1>
+        <p class="lead">Comment rendre un espace <strong>accessible à tous</strong> ? Découvre comment les ingénieurs formulent un besoin et rédigent un cahier des charges à travers l'exemple d'un ascenseur pour fauteuil roulant.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" data-nav="observer">Commencer le cours →</button>
+          <button class="btn btn-ghost" data-nav="entrainer">Aller aux exercices</button>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-card">
+            <div class="meta-num">5</div>
+            <div class="meta-lbl">Sections interactives</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-num">5</div>
+            <div class="meta-lbl">Exercices corrigés</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-num">1</div>
+            <div class="meta-lbl">Sujet type brevet</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-illu">
+        <div class="illu-card">
+          <div class="illu-emoji">🏢</div>
+          <div class="illu-tag">Situation</div>
+          <div class="illu-cap">Un ascenseur domestique n'est pas adapté à un fauteuil roulant</div>
+        </div>
+        <div class="illu-card">
+          <div class="illu-emoji">♿</div>
+          <div class="illu-tag">Problème</div>
+          <div class="illu-cap">Comment rendre cet ascenseur accessible à tous ?</div>
+        </div>
+        <div class="illu-card">
+          <div class="illu-emoji">📋</div>
+          <div class="illu-tag">Solution</div>
+          <div class="illu-cap">Rédiger un nouveau cahier des charges</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container roadmap">
+    <h2>🗺️ Ton parcours</h2>
+    <div class="roadmap-grid">
+      <div class="rm-card" data-nav="observer">
+        <div class="rm-step">Étape 1</div>
+        <div class="rm-emoji">🔍</div>
+        <h3>Observer</h3>
+        <p>La situation problème et l'analyse de l'ascenseur domestique actuel.</p>
+      </div>
+      <div class="rm-card" data-nav="etude">
+        <div class="rm-step">Étape 2</div>
+        <div class="rm-emoji">📐</div>
+        <h3>Étudier</h3>
+        <p>Les contraintes pour accueillir un fauteuil roulant (taille, hauteur, accessibilité).</p>
+      </div>
+      <div class="rm-card" data-nav="resoudre">
+        <div class="rm-step">Étape 3</div>
+        <div class="rm-emoji">✏️</div>
+        <h3>Résoudre</h3>
+        <p>Les deux méthodes pour modifier le cahier des charges existant.</p>
+      </div>
+      <div class="rm-card" data-nav="apprendre">
+        <div class="rm-step">Étape 4</div>
+        <div class="rm-emoji">💡</div>
+        <h3>Apprendre</h3>
+        <p>L'essentiel à retenir : besoins, fonctions, contraintes, méthodologie.</p>
+      </div>
+      <div class="rm-card" data-nav="entrainer">
+        <div class="rm-step">Étape 5</div>
+        <div class="rm-emoji">🎯</div>
+        <h3>S'entraîner</h3>
+        <p>5 exercices avec correction pas à pas pour vérifier tes acquis.</p>
+      </div>
+      <div class="rm-card" data-nav="brevet">
+        <div class="rm-step">Bonus</div>
+        <div class="rm-emoji">🎓</div>
+        <h3>Vers le brevet</h3>
+        <p>Un sujet type DNB : le drone livreur de pizzas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container objectives">
+    <h2>🎯 À la fin du chapitre, tu sauras…</h2>
+    <ul class="obj-list">
+      <li><span>✅</span> Identifier un besoin et le formuler en problème technique</li>
+      <li><span>✅</span> Distinguer les 6 familles de contraintes d'un objet technique</li>
+      <li><span>✅</span> Modifier ou rédiger un cahier des charges</li>
+      <li><span>✅</span> Décrire un objet par ses fonctions principales et contraintes</li>
+      <li><span>✅</span> Utiliser le vocabulaire technique adapté</li>
+    </ul>
+  </section>
+</main>
+
+<!-- ============== PAGE: OBSERVER ============== -->
+<main id="page-observer" class="page">
+  <div class="container">
+    <div class="page-head">
+      <span class="section-tag tag-observer">🔍 OBSERVER</span>
+      <h1>Comment rendre un espace <span class="hl">accessible à tous</span> ?</h1>
+      <p class="lead">À partir d'une situation concrète, identifie le besoin et le problème technique que devront résoudre les ingénieurs.</p>
+    </div>
+
+    <!-- Compétences -->
+    <div class="competences">
+      <div class="comp-title">🎯 Compétences associées</div>
+      <ul>
+        <li><span class="dot"></span>Identifier un besoin</li>
+        <li><span class="dot"></span>Identifier des conditions d'utilisation et des contraintes</li>
+        <li><span class="dot"></span>Qualifier et quantifier des performances</li>
+      </ul>
+    </div>
+
+    <!-- Situation -->
+    <section class="situation-block">
+      <div class="bg-tag bg-observer">Situation</div>
+      <div class="bg-content">
+        <p>Un <strong>ascenseur</strong> permet à une personne à mobilité réduite de monter et de descendre d'un étage. Le modèle de l'entreprise <em>Élévator</em> offre la possibilité de changer d'étage en position debout.</p>
+        <p>Une <strong>designeuse industrielle</strong> doit adapter ce modèle à une personne en fauteuil roulant.</p>
+      </div>
+      <div class="situation-illu">
+        <div class="illu-building">
+          <div class="floor">
+            <div class="floor-label">1<sup>er</sup> étage</div>
+            <div class="window"></div>
+          </div>
+          <div class="floor">
+            <div class="floor-label">Rez-de-chaussée</div>
+            <div class="elevator-shaft">
+              <div class="elevator-cabin"></div>
+              <div class="elevator-door"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problème -->
+    <section class="problem-block">
+      <div class="bg-tag bg-problem">Problème</div>
+      <div class="bg-content">
+        <p>Comment formuler les <strong>fonctions et les contraintes</strong> du nouvel ascenseur ?</p>
+      </div>
+    </section>
+
+    <!-- Bloc 1 : le modèle actuel -->
+    <section class="content-card">
+      <div class="bloc-head">
+        <span class="bloc-num">Bloc 1</span>
+        <h2>Ascenseur domestique</h2>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3 class="sub-head">🔎 Le modèle actuel d'ascenseur</h3>
+          <div class="diagramme-cas">
+            <div class="dc-user">
+              <div class="dc-fig">🧍</div>
+              <div class="dc-cap">Utilisateur</div>
+            </div>
+            <div class="dc-bubbles">
+              <div class="bubble bubble-obj">Ascenseur domestique</div>
+              <div class="bubble bubble-act">Permettre à une personne de changer de niveau dans une habitation</div>
+            </div>
+          </div>
+
+          <div class="callout callout-magenta">
+            <div class="callout-tag">Diagramme des cas d'utilisation</div>
+            <p><strong>Ascenseur domestique</strong> : ascenseur domestique qui ne dessert qu'un étage.</p>
+          </div>
+        </div>
+
+        <div class="img-placeholder modern">
+          <div class="ip-emoji">🛗</div>
+          <div class="ip-cap">Le modèle actuel d'ascenseur (élévateur domestique)</div>
+        </div>
+      </div>
+
+      <!-- Tableau fonctions/contraintes -->
+      <h3 class="sub-head">📊 Fonctions (F) et contraintes (C) du modèle actuel</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Fonctions (F) et contraintes (C)</th><th>Critères</th><th>Niveaux</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>F1</strong> — Permettre à une personne de changer d'étage dans une habitation.</td><td>Niveaux desservis</td><td>2</td></tr>
+            <tr><td></td><td>Charge</td><td>225 kg</td></tr>
+            <tr><td><strong>C1</strong> — Assurer un déplacement régulier.</td><td>Vitesse</td><td>60 mm/s</td></tr>
+            <tr><td><strong>C2</strong> — Accueillir une personne en position debout.</td><td>Surface de la cabine</td><td>750 × 1 100 mm</td></tr>
+            <tr><td><strong>C3</strong> — Permettre à la personne de pénétrer aisément dans la cabine.</td><td>Ouverture de la porte</td><td>jusqu'à 90°</td></tr>
+            <tr><td><strong>C4</strong> — Participer au développement durable.</td><td>Nombre de matériaux</td><td>Limité</td></tr>
+            <tr><td></td><td>Valorisation</td><td>Recyclable 100 %</td></tr>
+            <tr><td><strong>C5</strong> — Pouvoir personnaliser l'esthétique.</td><td>Motifs et couleurs</td><td>Choix d'images</td></tr>
+            <tr><td><strong>C6</strong> — Être d'un coût attrayant.</td><td>Niveau de prix</td><td>Économique</td></tr>
+            <tr><td><strong>C7</strong> — Sécuriser l'accès.</td><td>Interrupteur</td><td>Avec clé</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="caption">Cahier des charges du modèle actuel de l'ascenseur</p>
+    </section>
+
+    <!-- J'analyse la situation -->
+    <section class="analyse-box">
+      <div class="ab-head">🧠 J'analyse la situation</div>
+      <ol class="ab-list">
+        <li>Indiquez la fonction d'un ascenseur domestique (doc. 1).</li>
+        <li>Expliquez comment entre l'utilisateur dans le modèle actuel d'ascenseur (doc. 1).</li>
+        <li>Déterminez le problème technique que doit résoudre la designeuse (Situation).</li>
+        <li>Calculez la largeur nécessaire pour qu'un fauteuil roulant entre dans la cabine de l'ascenseur (doc. 2).</li>
+      </ol>
+    </section>
+  </div>
+</main>
+
+<!-- ============== PAGE: ETUDE ============== -->
+<main id="page-etude" class="page">
+  <div class="container">
+    <div class="page-head">
+      <span class="section-tag tag-observer">📐 ÉTUDE</span>
+      <h1>Étude des contraintes pour recevoir un fauteuil roulant</h1>
+      <p class="lead">Bloc 2 : Étude de l'encombrement et de la position des boutons de commande.</p>
+    </div>
+
+    <section class="content-card">
+      <h2>📏 Étude de l'encombrement et de la position des boutons de commande</h2>
+
+      <div class="grid-2">
+        <div class="img-placeholder blue">
+          <div class="ip-emoji">🧑‍🦽</div>
+          <div class="ip-cap">Position des commandes : 88 cm de longueur — hauteur 75 à 80 cm — Pour manœuvrer + 7 cm</div>
+        </div>
+        <div class="img-placeholder blue">
+          <div class="ip-emoji">↔️</div>
+          <div class="ip-cap">Longueur d'encombrement avec fauteuil : 155 cm + 7 cm de marge</div>
+        </div>
+      </div>
+
+      <div class="grid-2 mt-2">
+        <div class="info-block">
+          <p>Le fauteuil roulant standard a une longueur de <strong>137 cm</strong> sur une largeur de <strong>88 cm</strong>. Les mains se situent à une hauteur variant entre <strong>75 et 80 cm</strong>.</p>
+        </div>
+        <div class="info-block">
+          <p>Quand une personne pousse le fauteuil roulant, la longueur de l'encombrement est de <strong>155 cm</strong>. Il faut ajouter <strong>7 cm</strong> lorsque l'on manœuvre le fauteuil.</p>
+        </div>
+      </div>
+
+      <h2>♿ Accessibilité à la cabine de l'ascenseur</h2>
+      <div class="grid-2">
+        <div class="img-placeholder purple">
+          <div class="ip-emoji">🚪</div>
+          <div class="ip-cap">Cabine avec accès facilité : ouverture 140°, rotation de la porte, ouverture et fermeture automatiques</div>
+        </div>
+        <div class="info-block">
+          <p>L'accès aux différents lieux doit être facilité en permettant à la personne en fauteuil roulant de <strong>pénétrer aisément</strong> (rotation des portes, ouverture et fermeture automatiques…).</p>
+          <p>Dans les maisons ou les appartements, les volumes des pièces, les couloirs et les portes sont adaptés au passage d'un fauteuil roulant.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-yellow">
+        <div class="callout-tag">💡 Le savais-tu ?</div>
+        <p>Une personne à mobilité réduite n'a pas les mêmes besoins selon qu'elle utilise un fauteuil roulant manuel, un fauteuil électrique, une canne, ou qu'elle se déplace debout avec difficulté. Les normes d'accessibilité (PMR) prennent en compte ces différentes situations.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ============== PAGE: RESOUDRE ============== -->
+<main id="page-resoudre" class="page">
+  <div class="container">
+    <div class="page-head">
+      <span class="section-tag tag-resoudre">✏️ RÉSOUDRE</span>
+      <h1>Comment rendre un espace <span class="hl-magenta">accessible à tous</span> ?</h1>
+      <p class="lead">Deux méthodes pour faire évoluer le cahier des charges.</p>
+    </div>
+
+    <!-- Méthode 1 -->
+    <section class="content-card">
+      <div class="methode-head">
+        <span class="methode-tag">Méthode 1</span>
+        <h2>Modifier le cahier des charges</h2>
+      </div>
+      <div class="grid-2">
+        <div>
+          <ul class="bullets">
+            <li>Un cahier des charges indique les <strong>fonctions</strong> qu'un objet doit assurer et les <strong>contraintes</strong> auxquelles il doit répondre. Ces critères sont établis pour caractériser les fonctions ou les contraintes. Le cahier des charges fixe également les niveaux de performance à atteindre.</li>
+            <li>Pour formuler un nouveau besoin, il faut redéfinir la fonction principale de l'objet et identifier les utilisateurs. On repère alors les éléments du cahier des charges qu'il faut modifier pour y répondre.</li>
+          </ul>
+        </div>
+        <div class="demarche-box">
+          <div class="demarche-head">Démarche</div>
+          <div class="demarche-steps">
+            <div class="ds"><span class="ds-num">1</span> Déterminer les acteurs humains et non humains.</div>
+            <div class="ds"><span class="ds-num">2</span> Formuler le nouveau besoin.</div>
+            <div class="ds"><span class="ds-num">3</span> Repérer les fonctions ou les contraintes à modifier.</div>
+            <div class="ds"><span class="ds-num">4</span> Repérer les critères et les niveaux à modifier.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub-head">📋 Application à l'ascenseur</h3>
+      <div class="grid-2">
+        <div class="diagramme-cas alt">
+          <div class="dc-user">
+            <div class="dc-fig">🧑‍🦽</div>
+            <div class="dc-cap">Fauteuil roulant</div>
+          </div>
+          <div class="dc-bubbles">
+            <div class="bubble bubble-obj alt">Ascenseur domestique</div>
+            <div class="bubble bubble-act alt">Permettre à une personne <strong>en fauteuil roulant</strong> de changer d'étage dans une habitation</div>
+          </div>
+        </div>
+        <div class="img-placeholder modern">
+          <div class="ip-emoji">♿🛗</div>
+          <div class="ip-cap">Ascenseur adapté au fauteuil roulant</div>
+        </div>
+      </div>
+
+      <h3 class="sub-head">📊 Fonctions et contraintes modifiées (Méthode 1)</h3>
+      <div class="table-wrap">
+        <table class="data-table highlight">
+          <thead>
+            <tr><th>Fonctions (F) et contraintes (C)</th><th>Critères</th><th>Niveaux</th></tr>
+          </thead>
+          <tbody>
+            <tr class="hl-row"><td><strong>F1</strong> — Permettre à une personne <mark>en fauteuil roulant</mark> de changer d'étage dans une habitation.</td><td>Niveaux desservis</td><td>2</td></tr>
+            <tr><td></td><td>Charge</td><td>225 kg</td></tr>
+            <tr><td><strong>C1</strong> — Assurer un déplacement régulier.</td><td>Vitesse</td><td>60 mm/s</td></tr>
+            <tr class="hl-row"><td><strong>C2</strong> — <mark>Accueillir une personne en position debout</mark>.</td><td>Surface de la cabine</td><td><mark>750 × 1 100 mm</mark></td></tr>
+            <tr><td><strong>C3</strong> — Permettre à la personne de pénétrer aisément dans la cabine.</td><td>Ouverture de la porte</td><td>jusqu'à 90°</td></tr>
+            <tr><td><strong>C4</strong> — Participer au développement durable.</td><td>Nombre de matériaux</td><td>Limité</td></tr>
+            <tr><td></td><td>Valorisation</td><td>Recyclable 100 %</td></tr>
+            <tr><td><strong>C5</strong> — Pouvoir personnaliser l'esthétique.</td><td>Motifs et couleurs</td><td>Choix d'images</td></tr>
+            <tr><td><strong>C6</strong> — Être d'un coût attrayant.</td><td>Niveau de prix</td><td>Économique</td></tr>
+            <tr><td><strong>C7</strong> — Sécuriser l'accès.</td><td>Interrupteur</td><td>Actionné avec clé</td></tr>
+            <tr class="legend-row"><td colspan="3">Cahier des charges du modèle actuel de l'ascenseur · éléments à modifier (surbrillance jaune)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Méthode 2 -->
+    <section class="content-card">
+      <div class="methode-head">
+        <span class="methode-tag">Méthode 2</span>
+        <h2>Rédiger le nouveau cahier des charges</h2>
+      </div>
+      <p>Un nouveau cahier des charges est rédigé et modifie le cahier des charges existant. Les nouveaux critères et les niveaux de performance sont fixés. Ce nouveau cahier des charges complète le précédent en pratiquant des tests et en s'enrichissant de ressources documentaires.</p>
+
+      <div class="grid-2">
+        <div class="demarche-box">
+          <div class="demarche-head">Démarche</div>
+          <div class="demarche-steps">
+            <div class="ds"><span class="ds-num">1</span> Reporter les informations du cahier des charges existant qui ne sont pas modifiées.</div>
+            <div class="ds"><span class="ds-num">2</span> Reformuler les fonctions et les contraintes.</div>
+            <div class="ds"><span class="ds-num">3</span> Ajouter de nouvelles fonctions et les contraintes.</div>
+            <div class="ds"><span class="ds-num">4</span> Compléter les critères et les niveaux d'appréciation qui correspondent à ces nouvelles fonctions.</div>
+          </div>
+        </div>
+        <div class="conseil-box">
+          <div class="conseil-head">💡 Conseil</div>
+          <p>Listez les différents types de contraintes afin de ne rien oublier : <em>contraintes fonctionnelles, ergonomiques, esthétiques, de sécurité, environnementales, économiques.</em></p>
+        </div>
+      </div>
+
+      <h3 class="sub-head">📋 Application à l'ascenseur pour fauteuil roulant</h3>
+      <div class="table-wrap">
+        <table class="data-table highlight">
+          <thead>
+            <tr><th>Fonctions (F) et contraintes (C)</th><th>Critères</th><th>Niveaux</th></tr>
+          </thead>
+          <tbody>
+            <tr class="hl-row"><td><strong>F1</strong> — <mark>Permettre à une personne en fauteuil roulant</mark> de changer d'étage dans une habitation.</td><td>Niveaux desservis</td><td>2</td></tr>
+            <tr><td></td><td>Charge</td><td>225 kg</td></tr>
+            <tr><td><strong>C1</strong> — Assurer un déplacement régulier.</td><td>Vitesse</td><td>60 mm/s</td></tr>
+            <tr class="hl-row"><td><strong>C2</strong> — <mark>Accueillir une personne en fauteuil roulant</mark>.</td><td>Surface de la cabine (l × L)</td><td><mark>1 102 cm × 1 162 cm</mark></td></tr>
+            <tr class="hl-row"><td><strong>C3</strong> — <mark>Permettre à la personne de pénétrer aisément dans la cabine avec son fauteuil</mark>.</td><td>Rotation de la porte<br>Ouverture/fermeture</td><td><mark>Jusqu'à 160°</mark><br><mark>Automatique</mark></td></tr>
+            <tr class="hl-row"><td><strong>C4</strong> — <mark>Rendre accessibles les commandes</mark>.</td><td><mark>Hauteur</mark></td><td><mark>75 à 80 cm</mark></td></tr>
+            <tr><td><strong>C5</strong> — Participer au développement durable.</td><td>Nombre de matériaux<br>Valorisation</td><td>Limité<br>Recyclable 100 %</td></tr>
+            <tr><td><strong>C6</strong> — Pouvoir personnaliser l'esthétique.</td><td>Motifs et couleurs</td><td>Choix d'images</td></tr>
+            <tr><td><strong>C7</strong> — Être d'un coût attrayant.</td><td>Niveau de prix</td><td>Économique</td></tr>
+            <tr><td><strong>C8</strong> — Sécuriser l'accès.</td><td>Interrupteur</td><td>Actionné avec clé</td></tr>
+            <tr class="legend-row"><td colspan="3">Cahier des charges du nouveau modèle ascenseur · <span class="legend-sq"></span> éléments modifiés</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Auto-évaluation -->
+    <section class="verifie-box">
+      <div class="vb-head">✅ Je vérifie que j'ai bien compris la méthode</div>
+      <div class="grid-2">
+        <ol class="vb-list">
+          <li>Indiquez la différence entre le diagramme des cas d'utilisation de l'ascenseur actuel (doc. 1, p. 18) et le nouveau diagramme des cas d'utilisation. <span class="ref">↗ Méthode 1</span></li>
+          <li>Justifiez les cinq modifications à apporter dans le cahier des charges à partir de l'étude des contraintes du nouvel ascenseur (doc. 2, p. 19). <span class="ref">↗ Méthode 1</span></li>
+          <li>Recherchez les informations qui ont permis de fixer les niveaux de performance dans le cahier des charges. <span class="ref">↗ Méthode 2</span></li>
+        </ol>
+        <div class="mini-projet">
+          <div class="mp-head">🚀 Mini-projet</div>
+          <p>Par groupe, déterminez les niveaux de performance à atteindre si l'on souhaite pouvoir transporter deux personnes en fauteuil roulant.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ============== PAGE: APPRENDRE ============== -->
+<main id="page-apprendre" class="page">
+  <div class="container">
+    <div class="page-head">
+      <span class="section-tag tag-apprendre">💡 APPRENDRE</span>
+      <h1>L'essentiel à <span class="hl-cyan">retenir</span></h1>
+      <p class="lead">Je retiens · Je sais faire.</p>
+    </div>
+
+    <!-- Je retiens -->
+    <section class="content-card">
+      <div class="ribbon-head"><span>📌</span><h2>Je retiens</h2></div>
+
+      <h3 class="sub-head rose">🧠 Besoins et fonctions</h3>
+      <p>Les études menées auprès des utilisateurs d'un objet technique permettent de connaître leurs <strong>insatisfactions</strong> et de déterminer leurs <strong>besoins</strong>. À partir de ces besoins, on peut formuler la (ou les) <strong>fonction(s) principale(s)</strong> d'un nouvel objet à concevoir.</p>
+      <p>Il est important de vérifier que l'objet réalisé correspond précisément aux besoins de l'utilisateur. Pour cela, on pratique des tests qui contrôlent ses niveaux de performance.</p>
+
+      <div class="schema-flow">
+        <div class="sf-node">Études</div>
+        <div class="sf-arrow">→</div>
+        <div class="sf-node primary">Besoins</div>
+        <div class="sf-arrow">→</div>
+        <div class="sf-node primary">Fonctions principales</div>
+        <div class="sf-arrow">→</div>
+        <div class="sf-node">Objet</div>
+        <div class="sf-arrow">→</div>
+        <div class="sf-node">Tests</div>
+        <div class="sf-arrow-down">↓</div>
+        <div class="sf-node alt">Utilisateurs</div>
+      </div>
+
+      <h3 class="sub-head rose">📑 Le cahier des charges</h3>
+      <p>L'utilisation d'un objet est précisée par des <strong>contraintes</strong> classées en six familles :</p>
+
+      <div class="contraintes-grid">
+        <div class="ct-card"><span class="ct-emoji">⚙️</span><strong>Contraintes fonctionnelles</strong> : remplir sa fonction principale</div>
+        <div class="ct-card"><span class="ct-emoji">🧍</span><strong>Contraintes ergonomiques</strong> : faciliter son utilisation</div>
+        <div class="ct-card"><span class="ct-emoji">🎨</span><strong>Contraintes esthétiques</strong> : le rendre plus attrayant</div>
+        <div class="ct-card"><span class="ct-emoji">🛡️</span><strong>Contraintes de sécurité</strong> : l'utiliser en toute sûreté</div>
+        <div class="ct-card"><span class="ct-emoji">🌱</span><strong>Contraintes environnementales</strong> : être conçu et utilisé dans un souci de développement durable</div>
+        <div class="ct-card"><span class="ct-emoji">💶</span><strong>Contraintes économiques</strong> : être d'un coût correspondant au service et à la qualité proposés</div>
+      </div>
+
+      <p>Un <strong>cahier des charges</strong> indique les fonctions et contraintes auxquelles doit répondre un objet technique. Chacune d'elle, on identifie des critères et des niveaux qui fixent la performance à atteindre.</p>
+
+      <div class="callout callout-pink">
+        <div class="callout-tag">📖 Définitions</div>
+        <ul class="def-list">
+          <li><strong>Besoin</strong> : c'est le service qu'attend un utilisateur d'un objet technique.</li>
+          <li><strong>Fonction principale</strong> : elle définit le principal besoin de l'utilisateur.</li>
+          <li><strong>Contrainte</strong> : caractéristique que l'objet technique doit assurer.</li>
+          <li><strong>Cahier des charges</strong> : document qui définit le rôle de l'objet, le besoin attendu. Il est essentiellement présenté sous la forme d'un tableau. Celui-ci montre les fonctions et les contraintes auxquelles l'objet doit répondre, ainsi que leurs performances (critères et niveaux).</li>
+        </ul>
+      </div>
+
+      <div class="mini-table">
+        <table>
+          <thead><tr><th>Fonctions (F) et contraintes (C)</th><th>Critères</th><th>Niveaux</th></tr></thead>
+          <tbody>
+            <tr><td>F — Permettre à une personne en fauteuil roulant de changer d'étage dans une habitation.</td><td>Nombre d'étages<br>Charge</td><td>2<br>225 kg</td></tr>
+          </tbody>
+        </table>
+        <div class="mt-anno">
+          <div class="anno">↑ Il s'agit d'une valeur que l'on évalue avec deux critères : <em>nombre</em> ou <em>une unité</em>.</div>
+          <div class="anno">↓ Les fonctions et les contraintes décrivent l'usage de l'objet. Elles précisent les caractéristiques auxquelles il doit répondre. ↑ Ce sont les critères qui permettent de juger, d'estimer, de vérifier en fonction de la contrainte (vitesse, dimensions, masse, tension).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Je sais faire -->
+    <section class="content-card">
+      <div class="ribbon-head"><span>🛠️</span><h2>Je sais faire</h2></div>
+
+      <p>Voici la méthodologie en 5 étapes pour identifier un besoin, formuler un problème technique et rédiger un cahier des charges.</p>
+
+      <div class="process-flow">
+        <div class="pf-step">
+          <div class="pf-num">1</div>
+          <div class="pf-title">Identifier le besoin</div>
+          <div class="pf-desc">À partir des enquêtes et insatisfactions des utilisateurs.</div>
+          <div class="pf-icon">👥</div>
+        </div>
+        <div class="pf-arrow">⬇</div>
+        <div class="pf-step">
+          <div class="pf-num">2</div>
+          <div class="pf-title">Énoncer le besoin</div>
+          <div class="pf-desc">Reformuler le besoin en un problème technique clair.</div>
+          <div class="pf-icon">💭</div>
+        </div>
+        <div class="pf-arrow">⬇</div>
+        <div class="pf-step">
+          <div class="pf-num">3</div>
+          <div class="pf-title">Formuler les fonctions et les contraintes</div>
+          <div class="pf-desc">Rédiger le cahier des charges.</div>
+          <div class="pf-icon">📋</div>
+        </div>
+        <div class="pf-arrow">⬇</div>
+        <div class="pf-step">
+          <div class="pf-num">4</div>
+          <div class="pf-title">Déterminer des critères et des niveaux</div>
+          <div class="pf-desc">Pour cela, on s'appuie sur des ressources documentaires, des normes et des tests.</div>
+          <div class="pf-icon">📏</div>
+        </div>
+        <div class="pf-arrow">⬇</div>
+        <div class="pf-step">
+          <div class="pf-num">5</div>
+          <div class="pf-title">Rédiger un document de synthèse</div>
+          <div class="pf-desc">Faire le point dans une situation de communication.</div>
+          <div class="pf-icon">📄</div>
+        </div>
+      </div>
+
+      <div class="callout callout-cyan">
+        <div class="callout-tag">✅ Tu vas savoir faire en 3ᵉ</div>
+        <p>En classe de 3ᵉ, tu vas approfondir cette démarche pour exprimer un besoin et y répondre par une solution technique concrète.</p>
+      </div>
+
+      <div class="j-appris">
+        <div class="ja-head">🏁 J'ai appris à</div>
+        <ul class="ja-list">
+          <li>Identifier un besoin et énoncer un problème technique, identifier les conditions, contraintes (normes et règlements) et ressources correspondantes</li>
+          <li>M'approprier un cahier des charges</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ============== PAGE: ENTRAINER ============== -->
+<main id="page-entrainer" class="page">
+  <div class="container">
+    <div class="page-head">
+      <span class="section-tag tag-entrainer">🎯 S'ENTRAÎNER</span>
+      <h1>Exercices interactifs avec <span class="hl-magenta">correction pas à pas</span></h1>
+      <p class="lead">Vérifie tes connaissances puis utilise tes compétences. Pour chaque QCM, choisis la bonne réponse puis clique sur « Valider ». Pour les exercices rédigés, clique sur « Afficher la correction ».</p>
+    </div>
+
+    <div class="comp-bar">
+      <div class="cb-title">🎯 Compétences travaillées</div>
+      <ul>
+        <li>Identifier un besoin (ex. 3)</li>
+        <li>Identifier les conditions d'utilisation et les contraintes (ex. 4)</li>
+        <li>S'approprier un cahier des charges (ex. 5)</li>
+      </ul>
+    </div>
+
+    <!-- Exercice 1 -->
+    <section class="exo-card" data-exo="1">
+      <div class="exo-head">
+        <span class="exo-tag">Je vérifie mes connaissances</span>
+        <h2>Exercice 1 — QCM connaissances</h2>
+      </div>
+      <p>Choisis la bonne réponse pour chaque question.</p>
+
+      <div class="qcm-list"></div>
+
+      <div class="exo-actions">
+        <button class="btn btn-primary btn-validate">✅ Valider mes réponses</button>
+        <button class="btn btn-ghost btn-reset">↻ Réinitialiser</button>
+      </div>
+      <div class="exo-result"></div>
+    </section>
+
+    <!-- Exercice 2 -->
+    <section class="exo-card" data-exo="2">
+      <div class="exo-head">
+        <span class="exo-tag exo-tag-use">J'utilise mes compétences</span>
+        <h2>Exercice 2 — Distributeur de pain</h2>
+      </div>
+      <p>Un boulanger veut vendre des baguettes dans un petit village voisin de sa boulangerie. Pour cela, il souhaite installer un <strong>distributeur de pain</strong>.</p>
+
+      <div class="questions-block"></div>
+
+      <button class="btn btn-primary btn-show-corr">💡 Afficher la correction pas à pas</button>
+      <div class="correction-block"></div>
+    </section>
+
+    <!-- Exercice 3 -->
+    <section class="exo-card" data-exo="3">
+      <div class="exo-head">
+        <span class="exo-tag">Je vérifie mes connaissances</span>
+        <h2>Exercice 3 — Robot aspirateur : niveau de performance</h2>
+      </div>
+      <p>Les tests effectués sur trois robots aspirateurs ont permis de mesurer leurs performances.</p>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Critères</th><th>Roomba 980</th><th>Hom-Bot Square</th><th>Powervot VR6000</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Niveau sonore</td><td>69 dB</td><td>60 dB</td><td>76 dB</td></tr>
+            <tr><td>Capacité du bac</td><td>0,6 L</td><td>0,6 L</td><td>0,7 L</td></tr>
+            <tr><td>Temps de charge</td><td>3 h</td><td>3 h</td><td>2,4 h</td></tr>
+            <tr><td>Autonomie</td><td>2 h</td><td>1 h 40</td><td>1 h</td></tr>
+            <tr><td>Hauteur</td><td>9,2 cm</td><td>8,9 cm</td><td>13,5 cm</td></tr>
+            <tr><td>Hauteur seuil</td><td>2 cm</td><td>1,5 cm</td><td>1,2 cm</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="questions-block"></div>
+      <button class="btn btn-primary btn-show-corr">💡 Afficher la correction pas à pas</button>
+      <div class="correction-block"></div>
+    </section>
+
+    <!-- Exercice 4 -->
+    <section class="exo-card" data-exo="4">
+      <div class="exo-head">
+        <span class="exo-tag">Je vérifie mes connaissances</span>
+        <h2>Exercice 4 — Le cahier des charges d'un robot</h2>
+      </div>
+      <div class="grid-2">
+        <div class="img-placeholder green">
+          <div class="ip-emoji">🤖</div>
+          <div class="ip-cap">Rob'OK — Robot suiveur de ligne</div>
+        </div>
+        <div>
+          <p><strong>Règlement du concours de robotique</strong></p>
+          <ul class="bullets">
+            <li>A. Le Rob'OK doit se déplacer de manière autonome.</li>
+            <li>B. Le Rob'OK doit repérer et aller chercher sur la piste un palet de diamètre 40 mm et d'épaisseur 10 mm et l'emmener dans la zone de buts.</li>
+            <li>C. La tension d'alimentation des différents éléments électriques ne doit pas excéder 6 volts.</li>
+            <li>D. Le coût d'un Rob'OK ne doit pas dépasser 50 euros.</li>
+            <li>E. La durée de l'épreuve est de 5 minutes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-cyan">
+        <p>À partir du règlement du concours, <strong>rédige le cahier des charges</strong> en indiquant les fonctions, les contraintes et les niveaux de performance auxquels doit répondre le robot du concours.</p>
+      </div>
+
+      <div class="questions-block"></div>
+      <button class="btn btn-primary btn-show-corr">💡 Afficher la correction pas à pas</button>
+      <div class="correction-block"></div>
+    </section>
+
+    <!-- Exercice 5 -->
+    <section class="exo-card" data-exo="5">
+      <div class="exo-head">
+        <span class="exo-tag">Je vérifie mes connaissances</span>
+        <h2>Exercice 5 — Une enceinte étanche</h2>
+      </div>
+      <p>Un bureau d'étude a comparé les niveaux de performance de l'enceinte acoustique existante d'un centre d'aquarium aux besoins exprimés dans le cahier des charges.</p>
+
+      <div class="grid-2">
+        <div>
+          <h3 class="sub-head">📋 Fonctions (F) et contraintes (C)</h3>
+          <ul class="bullets">
+            <li><strong>F1</strong> — Doit émettre un son d'un volume de 50 décibels à 1 mètre.</li>
+            <li><strong>C1</strong> — Doit fonctionner pendant deux heures sans être rechargée.</li>
+            <li><strong>C2</strong> — Doit être connecté en Bluetooth avec un smartphone à une distance de 10 m.</li>
+            <li><strong>C3</strong> — L'eau de la piscine ne doit pas pénétrer à l'intérieur de l'enceinte.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="sub-head">🧪 Résultats des tests de performance</h3>
+          <table class="data-table compact">
+            <thead><tr><th>Test</th><th>Résultat</th></tr></thead>
+            <tbody>
+              <tr><td>Puissance sonore</td><td>60 décibels à 1 mètre</td></tr>
+              <tr><td>Autonomie</td><td>90 minutes</td></tr>
+              <tr><td>Portée Bluetooth</td><td>8 mètres</td></tr>
+              <tr><td>Étanchéité</td><td>L'étanche jusqu'à 3 m de profondeur</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="questions-block"></div>
+      <button class="btn btn-primary btn-show-corr">💡 Afficher la correction pas à pas</button>
+      <div class="correction-block"></div>
+    </section>
+
+    <div class="callout callout-yellow score-final">
+      <div class="callout-tag">🏆 Bilan</div>
+      <p>Tu as terminé tous les exercices ! Reviens autant de fois que tu veux pour mémoriser.</p>
+    </div>
+  </div>
+</main>
+
+<!-- ============== PAGE: BREVET ============== -->
+<main id="page-brevet" class="page">
+  <div class="container">
+    <div class="page-head">
+      <span class="section-tag tag-brevet">🎓 VERS LE BREVET</span>
+      <h1>Un drone, livreur de pizzas 🍕</h1>
+      <p class="lead">Sujet type DNB — Technologie.</p>
+    </div>
+
+    <section class="content-card">
+      <p>Une chaîne de pizzerias s'adresse à une entreprise de fabrication de drones qui souhaite livrer des pizzas par ce moyen au domicile des clients.</p>
+      <p>L'entreprise dispose du <strong>cahier des charges d'un drone</strong> qui pourrait être adapté (doc. 1), du <strong>diagramme des cas d'utilisation</strong> (doc. 2), des <strong>résultats de l'étude du besoin et des tests</strong> (doc. 3) simulant la livraison.</p>
+      <p><strong>Modifie le cahier des charges</strong> existant pour l'adapter au nouveau besoin.</p>
+
+      <div class="brevet-questions">
+        <div class="bq-head">📝 Questions</div>
+        <ol>
+          <li>Représentez le diagramme des cas d'utilisation.</li>
+          <li>Énoncez la nouvelle fonction et les nouvelles contraintes du drone à ajouter au cahier des charges.</li>
+          <li>Rédigez le nouveau cahier des charges à partir de celui du drone existant, de l'étude du besoin et des tests pratiqués.</li>
+        </ol>
+      </div>
+
+      <div class="vos-ressources">
+        <div class="vr-head">📚 VOS RESSOURCES</div>
+      </div>
+
+      <h3 class="sub-head">Doc. 1 — Cahier des charges du drone existant</h3>
+      <div class="grid-2">
+        <div class="table-wrap">
+          <table class="data-table compact">
+            <thead><tr><th>Fonctions (F) et contraintes (C)</th><th>Critères</th><th>Niveaux</th></tr></thead>
+            <tbody>
+              <tr><td><strong>F1</strong> — Voler de manière autonome à partir des coordonnées GPS.</td><td>Rayon d'action<br>Altitude</td><td>3 km autour de la pizzeria<br>100 m</td></tr>
+              <tr><td><strong>C1</strong> — Voler au-dessus des infrastructures électriques et le long des routes.</td><td>Altitude</td><td>100 m</td></tr>
+              <tr><td><strong>C2</strong> — Être capable de contourner les obstacles.</td><td>Distance de détection</td><td>10 m</td></tr>
+              <tr><td><strong>C3</strong> — Garantir la sécurité de l'utilisateur.</td><td>Éléments en rotation<br>infolisifs</td><td>Tous</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="img-placeholder red">
+          <div class="ip-emoji">🚁🍕</div>
+          <div class="ip-cap">Drone livreur de pizzas en vol</div>
+        </div>
+      </div>
+
+      <h3 class="sub-head">Doc. 2 — Diagramme des cas d'utilisation du drone existant</h3>
+      <div class="diagramme-cas alt drone">
+        <div class="dc-user">
+          <div class="dc-fig">🧍</div>
+          <div class="dc-cap">Utilisateur</div>
+        </div>
+        <div class="dc-bubbles">
+          <div class="bubble bubble-obj alt">Drone</div>
+          <div class="bubble bubble-act alt"><strong>Faire</strong> des photos aériennes</div>
+        </div>
+      </div>
+
+      <h3 class="sub-head">Doc. 3 — Étude du besoin et tests de livraison</h3>
+      <div class="table-wrap">
+        <table class="data-table compact">
+          <thead><tr><th>Étude du besoin et tests de livraison</th><th>Résultats</th></tr></thead>
+          <tbody>
+            <tr><td>Situation géographique des futurs clients.</td><td>La livraison des pizzas doit pouvoir se faire dans un rayon de 3 km autour de la pizzeria.</td></tr>
+            <tr><td>Masse d'une livraison type : pizzas et leur boîte isotherme équipée d'une sangle permettant l'accrochage du drone.</td><td>Masse à transporter : 1 000 g.</td></tr>
+            <tr><td>Hauteur de largage pour livraison devant chez le client.</td><td>&lt; 10 cm du sol.</td></tr>
+            <tr><td>Signal pour avertir le client de la livraison.</td><td>Signal sonore.</td></tr>
+            <tr><td>Consommation d'énergie de différents dispositifs de maintien de la livraison (crochet de maintien).</td><td>Le crochet maintient en position fermée ne doit pas consommer aucune énergie.<br>Les batteries doivent pourvoir être changées facilement.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button class="btn btn-primary btn-show-corr-brevet">💡 Afficher la correction complète</button>
+      <div class="correction-brev"></div>
+    </section>
+  </div>
+</main>
+
+<!-- ============== FOOTER ============== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <strong>Techno 4ème — Chapitre 1</strong>
+        <p>Exprimer un besoin par un cahier des charges.</p>
+      </div>
+      <div>
+        <strong>Ressources</strong>
+        <p>Manuel de Technologie 4ème · Programme officiel.</p>
+      </div>
+      <div>
+        <strong>Navigation</strong>
+        <p>Tous les contenus sont accessibles via le menu en haut de page.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">Site pédagogique interactif · Réalisé pour expliquer le cours aux élèves de 4ème.</div>
+  </div>
+</footer>
+
+<script>
+/* ============================================
+   Techno 4ème — Interactions pédagogiques
+============================================ */
+
+/* -------- Données des QCM (Exercice 1) -------- */
+const QCM_DATA = [
+  {
+    q: "1. Les tests qui contrôlent les niveaux de performance des objets techniques permettent de :",
+    options: [
+      { id: "a", text: "de s'assurer que l'objet correspond bien au besoin pour lequel il a été conçu.", correct: true },
+      { id: "b", text: "de déterminer le coût de l'objet.", correct: false },
+      { id: "c", text: "de déterminer les moyens de fabrication à utiliser.", correct: false }
+    ],
+    explain: "Les tests permettent de vérifier que l'objet répond bien au besoin initial en mesurant ses performances réelles par rapport aux niveaux attendus."
+  },
+  {
+    q: "2. Les études menées auprès des utilisateurs permettent de :",
+    options: [
+      { id: "a", text: "tester les objets.", correct: false },
+      { id: "b", text: "connaître leurs insatisfactions et déterminer leurs besoins.", correct: true },
+      { id: "c", text: "comprendre le fonctionnement de l'objet.", correct: false }
+    ],
+    explain: "Les études utilisateurs (enquêtes, entretiens) servent à comprendre les usages réels et à identifier les besoins à satisfaire."
+  },
+  {
+    q: "3. Un cahier des charges est un document qui définit précisément :",
+    options: [
+      { id: "a", text: "les matériaux utilisés.", correct: false },
+      { id: "b", text: "le besoin attendu.", correct: true },
+      { id: "c", text: "les solutions techniques à mettre en œuvre.", correct: false }
+    ],
+    explain: "Le cahier des charges décrit le besoin, les fonctions et les contraintes, pas les solutions techniques."
+  },
+  {
+    q: "4. Un cahier des charges indique :",
+    options: [
+      { id: "a", text: "les fonctions et contraintes auxquelles doit satisfaire un objet technique.", correct: true },
+      { id: "b", text: "uniquement la fonction principale d'un objet technique.", correct: false },
+      { id: "c", text: "les efforts maximums auxquels peut être soumis l'objet technique.", correct: false }
+    ],
+    explain: "Le CDC liste toutes les fonctions et contraintes, chacune avec ses critères et niveaux."
+  },
+  {
+    q: "5. Dans un cahier des charges, les critères et les niveaux précisent :",
+    options: [
+      { id: "a", text: "la manière de choisir les solutions techniques.", correct: false },
+      { id: "b", text: "le principe de fonctionnement de chaque bloc fonctionnel.", correct: false },
+      { id: "c", text: "les performances de chaque fonction ou contrainte.", correct: true }
+    ],
+    explain: "Les critères et niveaux fixent de manière mesurable les performances attendues."
+  },
+  {
+    q: "6. Les contraintes ergonomiques concernent :",
+    options: [
+      { id: "a", text: "la facilité d'utilisation de l'objet.", correct: true },
+      { id: "b", text: "l'esthétique de l'objet.", correct: false },
+      { id: "c", text: "l'utilisation en toute sécurité de l'objet.", correct: false }
+    ],
+    explain: "L'ergonomie = adapter l'objet à l'utilisateur pour faciliter son usage. La sécurité est une autre famille de contraintes."
+  }
+];
+
+/* -------- Données des exercices 2-5 -------- */
+const OPEN_QUESTIONS = {
+  2: [
+    "Indiquez les personnes qui interagissent avec ce distributeur.",
+    "Donnez les deux principaux éléments qui sont échangés grâce à ce distributeur.",
+    "Décrivez le principal service que doit rendre ce distributeur.",
+    "Représentez par un diagramme des cas d'utilisation le besoin que doit satisfaire ce distributeur de pain."
+  ],
+  3: [
+    "Indiquez les critères retenus pour comparer les aspirateurs.",
+    "Relevez les critères spécifiques à un aspirateur autonome.",
+    "Indiquez l'aspirateur qui a la meilleure autonomie.",
+    "Listez deux autres critères liés à une contrainte ergonomique."
+  ],
+  4: [
+    "Relevez les fonctions principales du robot.",
+    "Identifiez les contraintes du cahier des charges et classez-les par famille (sécurité, économique, esthétique, etc.).",
+    "Proposez des critères et des niveaux pour chacune des contraintes."
+  ],
+  5: [
+    "Listez les tests qui ont permis de vérifier les niveaux de performance de l'enceinte existante.",
+    "Identifiez les niveaux de performances mesurés qui ne correspondent pas aux attendus du cahier des charges."
+  ]
+};
+
+const CORRECTIONS = {
+  2: [
+    {
+      title: "Acteurs du distributeur",
+      body: "<p><strong>Réponse :</strong> Le <em>boulanger</em> (qui remplit le distributeur) et les <em>clients / habitants du village</em> (qui achètent le pain).</p><p>On peut aussi considérer la <em>machine distributrice</em> comme un acteur non-humain qui interagit dans l'échange.</p>"
+    },
+    {
+      title: "Éléments échangés",
+      body: "<p><strong>Réponse :</strong></p><ul style='padding-left:18px'><li>Le <em>pain (baguette)</em> fourni par le distributeur</li><li>La <em>monnaie / le paiement</em> rendu par le distributeur</li></ul>"
+    },
+    {
+      title: "Service rendu",
+      body: "<p><strong>Réponse :</strong> Permettre aux habitants du village voisin d'acheter des baguettes <strong>à toute heure</strong>, sans avoir à se déplacer jusqu'à la boulangerie.</p>"
+    },
+    {
+      title: "Diagramme des cas d'utilisation",
+      body: `<div style='background:white;padding:14px;border-radius:10px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;'>
+        <div style='text-align:center;'><div style='font-size:42px'>🧍</div><div style='font-size:0.75rem;font-weight:600'>Habitant<br>du village</div></div>
+        <div style='font-size:1.6rem;color:#fb8c00'>→</div>
+        <div style='background:#fff3e0;padding:10px 18px;border-radius:8px;font-weight:700;color:#fb8c00;border:2px solid #fb8c00'>Distributeur de pain</div>
+        <div style='margin-left:auto;background:white;padding:8px 14px;border-radius:8px;border:2px solid #e91e63;color:#e91e63;font-size:0.85rem;'>Permettre d'acheter une baguette en libre-service, 24h/24</div>
+      </div>
+      <p style='margin-top:8px'><em>Formulation possible : « Le distributeur permet à un habitant du village d'acheter une baguette en libre-service, à toute heure. »</em></p>`
+    }
+  ],
+  3: [
+    {
+      title: "Critères retenus",
+      body: "<p><strong>Réponse :</strong> Niveau sonore, capacité du bac, temps de charge, autonomie, hauteur, hauteur seuil — soit 6 critères communs aux trois modèles.</p>"
+    },
+    {
+      title: "Critères spécifiques à un aspirateur autonome",
+      body: "<p><strong>Réponse :</strong></p><ul style='padding-left:18px'><li><strong>Autonomie</strong> (durée de fonctionnement sans intervention)</li><li><strong>Hauteur</strong> (pour passer sous les meubles)</li><li><strong>Hauteur seuil</strong> (pour franchir les petites barres de seuil)</li><li><strong>Temps de charge</strong></li></ul>"
+    },
+    {
+      title: "Meilleure autonomie",
+      body: "<p><strong>Réponse :</strong> Le <strong>Roomba 980</strong> avec 2 h d'autonomie, devant Hom-Bot Square (1 h 40) et Powervot VR6000 (1 h).</p>"
+    },
+    {
+      title: "Autres critères ergonomiques",
+      body: "<p><strong>Réponse possible :</strong></p><ul style='padding-left:18px'><li>Niveau sonore (confort d'utilisation)</li><li>Capacité du bac (fréquence de vidage)</li><li>Poids (transport / portage)</li><li>Type de commande (à distance, programmable, bouton)</li><li>Facilité de nettoyage du bac</li></ul>"
+    }
+  ],
+  4: [
+    {
+      title: "Fonctions principales",
+      body: "<p><strong>Réponse :</strong> Le robot doit :</p><ul style='padding-left:18px'><li>Se déplacer de manière autonome (F1)</li><li>Repérer et aller chercher un palet, puis l'emmener dans la zone de buts (F2)</li></ul><p>Ce sont deux fonctions de service principales.</p>"
+    },
+    {
+      title: "Contraintes classées par famille",
+      body: `<table class='data-table compact' style='width:100%;margin-top:6px'>
+        <thead><tr><th>Contrainte</th><th>Famille</th></tr></thead>
+        <tbody>
+          <tr><td>Tension ≤ 6 V (C)</td><td>Sécurité</td></tr>
+          <tr><td>Coût ≤ 50 € (D)</td><td>Économique</td></tr>
+          <tr><td>Durée épreuve 5 min (E)</td><td>Fonctionnelle (performance)</td></tr>
+        </tbody>
+      </table>`
+    },
+    {
+      title: "Critères et niveaux",
+      body: `<table class='data-table compact' style='width:100%;margin-top:6px'>
+        <thead><tr><th>Fonctions / Contraintes</th><th>Critères</th><th>Niveaux</th></tr></thead>
+        <tbody>
+          <tr><td>F1 — Se déplacer de manière autonome</td><td>Type de déplacement</td><td>Suivi de ligne</td></tr>
+          <tr><td>F2 — Récupérer un palet et l'amener dans la zone</td><td>Diamètre du palet<br>Épaisseur du palet<br>Temps de parcours</td><td>40 mm<br>10 mm<br>&lt; 5 min</td></tr>
+          <tr><td>C — Tension d'alimentation</td><td>Tension</td><td>≤ 6 V</td></tr>
+          <tr><td>D — Coût</td><td>Prix</td><td>≤ 50 €</td></tr>
+          <tr><td>E — Durée épreuve</td><td>Temps</td><td>5 min</td></tr>
+        </tbody>
+      </table>`
+    }
+  ],
+  5: [
+    {
+      title: "Tests réalisés",
+      body: "<p><strong>Réponse :</strong> 4 tests ont été pratiqués :</p><ul style='padding-left:18px'><li>Test de <strong>puissance sonore</strong></li><li>Test d'<strong>autonomie</strong></li><li>Test de <strong>portée Bluetooth</strong></li><li>Test d'<strong>étanchéité</strong></li></ul>"
+    },
+    {
+      title: "Niveaux ne correspondant pas aux attendus",
+      body: `<table class='data-table compact highlight' style='width:100%;margin-top:6px'>
+        <thead><tr><th>Critère</th><th>Attendu (CDC)</th><th>Mesuré</th><th>Conforme ?</th></tr></thead>
+        <tbody>
+          <tr class='hl-row'><td>Autonomie</td><td>2 h (120 min)</td><td>90 min</td><td>❌ Non conforme</td></tr>
+          <tr class='hl-row'><td>Portée Bluetooth</td><td>10 m</td><td>8 m</td><td>❌ Non conforme</td></tr>
+          <tr><td>Puissance sonore</td><td>50 dB à 1 m</td><td>60 dB à 1 m</td><td>❌ Trop fort</td></tr>
+          <tr><td>Étanchéité</td><td>Ne doit pas laisser entrer l'eau</td><td>Étanche jusqu'à 3 m</td><td>✅ Conforme (mieux que prévu)</td></tr>
+        </tbody>
+      </table>
+      <p style='margin-top:8px'><strong>Conclusion :</strong> 3 critères sur 4 ne respectent pas les niveaux du cahier des charges. Il faut faire évoluer l'enceinte pour augmenter l'autonomie, la portée Bluetooth et réduire le niveau sonore.</p>`
+    }
+  ]
+};
+
+/* -------- Correction Brevet (drone livreur) -------- */
+const BREVET_CORRECTION = `
+<div class="correction-block show" style="margin-top:18px">
+  <div class="corr-head">✅ Correction du sujet type brevet</div>
+
+  <div class="corr-step">
+    <span class="corr-step-num">Q1</span>
+    <div class="corr-step-title">Diagramme des cas d'utilisation</div>
+    <div class="corr-step-body">
+      <div style="background:white;padding:14px;border-radius:10px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;">
+        <div style="text-align:center"><div style="font-size:42px">🧍</div><div style="font-size:0.75rem;font-weight:600">Client / Livreur</div></div>
+        <div style="font-size:1.6rem;color:#8e24aa">→</div>
+        <div style="background:#f3e5f5;padding:10px 18px;border-radius:8px;font-weight:700;color:#8e24aa;border:2px solid #8e24aa">Drone</div>
+        <div style="margin-left:auto;background:white;padding:8px 14px;border-radius:8px;border:2px solid #00acc1;color:#00acc1;font-size:0.85rem;">Livrer une pizza au domicile du client<br>(rayon 3 km, charge 1 kg)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="corr-step">
+    <span class="corr-step-num">Q2</span>
+    <div class="corr-step-title">Nouvelle fonction et nouvelles contraintes</div>
+    <div class="corr-step-body">
+      <p><strong>Nouvelle fonction principale (F2) :</strong> Permettre de transporter et de larguer une pizza de 1 kg au domicile du client.</p>
+      <p><strong>Nouvelles contraintes :</strong></p>
+      <ul style="padding-left:18px">
+        <li>C4 — Capacité de transport : charge utile ≥ 1 000 g</li>
+        <li>C5 — Hauteur de largage : &lt; 10 cm du sol</li>
+        <li>C6 — Signal de livraison : signal sonore</li>
+        <li>C7 — Système d'accrochage : sangle + crochet, sans consommation d'énergie, batteries faciles à changer</li>
+        <li>C8 — Distance de livraison : rayon de 3 km</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="corr-step">
+    <span class="corr-step-num">Q3</span>
+    <div class="corr-step-title">Nouveau cahier des charges du drone livreur</div>
+    <div class="corr-step-body">
+      <table class="data-table highlight" style="width:100%">
+        <thead>
+          <tr><th>Fonctions (F) et contraintes (C)</th><th>Critères</th><th>Niveaux</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>F1</strong> — Voler de manière autonome à partir des coordonnées GPS.</td><td>Rayon d'action<br>Altitude</td><td>3 km autour de la pizzeria<br>100 m</td></tr>
+          <tr class="hl-row"><td><strong>F2</strong> — <mark>Transporter et larguer une pizza</mark> au domicile du client.</td><td><mark>Charge utile<br>Hauteur de largage<br>Signal de livraison</mark></td><td><mark>≥ 1 000 g<br>&lt; 10 cm du sol<br>Signal sonore</mark></td></tr>
+          <tr><td><strong>C1</strong> — Voler au-dessus des infrastructures électriques et le long des routes.</td><td>Altitude</td><td>100 m</td></tr>
+          <tr><td><strong>C2</strong> — Être capable de contourner les obstacles.</td><td>Distance de détection</td><td>10 m</td></tr>
+          <tr><td><strong>C3</strong> — Garantir la sécurité de l'utilisateur.</td><td>Éléments en rotation inoffensifs</td><td>Tous</td></tr>
+          <tr class="hl-row"><td><strong>C4</strong> — <mark>Système d'accrochage</mark> de la pizza.</td><td><mark>Crochet sans énergie<br>Batteries</mark></td><td><mark>Crochet mécanique (passif)<br>Faciles à changer</mark></td></tr>
+          <tr class="legend-row"><td colspan="3">Cahier des charges du drone livreur de pizzas · <span class="legend-sq"></span> éléments modifiés ou ajoutés</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+/* ============================================
+   Initialisation
+============================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupNavigation();
+  setupBurger();
+  setupCardsNavigation();
+  setupExo1();
+  setupExosOpen();
+  setupBrevet();
+  initOpenQuestionsBlocks();
+});
+
+/* -------- Navigation entre pages -------- */
+function setupNavigation() {
+  document.querySelectorAll('[data-nav]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.nav;
+      navigateTo(target);
+    });
+  });
+}
+
+function navigateTo(target) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const page = document.getElementById('page-' + target);
+  if (page) {
+    page.classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach(b => {
+      if (b.dataset.nav === target) b.classList.add('active');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelector('.main-nav')?.classList.remove('open');
+  }
+}
+
+/* -------- Burger mobile -------- */
+function setupBurger() {
+  const burger = document.querySelector('.burger');
+  const nav = document.querySelector('.main-nav');
+  if (!burger || !nav) return;
+  burger.addEventListener('click', () => nav.classList.toggle('open'));
+}
+
+/* -------- Cartes cliquables -------- */
+function setupCardsNavigation() {
+  document.querySelectorAll('[data-nav]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+    });
+  });
+}
+
+/* -------- Exercice 1 : QCM -------- */
+function setupExo1() {
+  const exo = document.querySelector('[data-exo="1"]');
+  if (!exo) return;
+  const list = exo.querySelector('.qcm-list');
+  list.innerHTML = QCM_DATA.map((item, qi) => `
+    <div class="qcm-question" data-qi="${qi}">
+      <div class="qcm-q-text">${item.q}</div>
+      <div class="qcm-options">
+        ${item.options.map(opt => `
+          <label class="qcm-option" data-correct="${opt.correct}" data-qi="${qi}" data-oid="${opt.id}">
+            <input type="radio" name="q${qi}" value="${opt.id}">
+            <span>${opt.id.toUpperCase()}. ${opt.text}</span>
+          </label>
+        `).join('')}
+      </div>
+      <div class="qcm-explain">💡 ${item.explain}</div>
+    </div>
+  `).join('');
+
+  // Sélection visuelle
+  list.querySelectorAll('.qcm-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const qi = opt.dataset.qi;
+      list.querySelectorAll(`.qcm-option[data-qi="${qi}"]`).forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      opt.querySelector('input').checked = true;
+    });
+  });
+
+  // Validation
+  exo.querySelector('.btn-validate').addEventListener('click', () => validateQCM(exo));
+  exo.querySelector('.btn-reset').addEventListener('click', () => resetQCM(exo));
+}
+
+function validateQCM(exo) {
+  let score = 0;
+  const total = QCM_DATA.length;
+  QCM_DATA.forEach((item, qi) => {
+    const q = exo.querySelector(`.qcm-question[data-qi="${qi}"]`);
+    q.classList.add('show-explain');
+    const opts = q.querySelectorAll('.qcm-option');
+    let userCorrect = false;
+    opts.forEach(opt => {
+      const isCorrect = opt.dataset.correct === 'true';
+      const input = opt.querySelector('input');
+      if (input.checked) {
+        if (isCorrect) {
+          userCorrect = true;
+          opt.classList.add('is-correct');
+        } else {
+          opt.classList.add('is-wrong');
+        }
+      }
+      if (isCorrect) opt.classList.add('is-correct');
+    });
+    q.classList.add(userCorrect ? 'correct' : 'wrong');
+    if (userCorrect) score++;
+  });
+
+  const result = exo.querySelector('.exo-result');
+  const pct = Math.round((score / total) * 100);
+  let msg = '';
+  if (pct === 100) msg = '🏆 Bravo, score parfait ! Tu maîtrises parfaitement le cours.';
+  else if (pct >= 80) msg = '👏 Très bien ! Quelques détails à revoir.';
+  else if (pct >= 50) msg = '👍 C\'est un bon début, relis bien la partie « Je retiens ».';
+  else msg = '📖 Reprends le cours puis réessaie. Tu vas y arriver !';
+
+  result.innerHTML = `
+    <h3>Résultat de l'exercice 1</h3>
+    <div class="score-big">${score} / ${total}</div>
+    <p style="text-align:center;font-weight:600;font-size:1.1rem">${msg}</p>
+  `;
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetQCM(exo) {
+  QCM_DATA.forEach((_, qi) => {
+    const q = exo.querySelector(`.qcm-question[data-qi="${qi}"]`);
+    q.classList.remove('correct', 'wrong', 'show-explain');
+    q.querySelectorAll('.qcm-option').forEach(o => {
+      o.classList.remove('selected', 'is-correct', 'is-wrong');
+      const inp = o.querySelector('input');
+      if (inp) inp.checked = false;
+    });
+  });
+  exo.querySelector('.exo-result').classList.remove('show');
+}
+
+/* -------- Exercices 2-5 : questions ouvertes + correction -------- */
+function initOpenQuestionsBlocks() {
+  for (const exoNum in OPEN_QUESTIONS) {
+    const exo = document.querySelector(`[data-exo="${exoNum}"]`);
+    if (!exo) continue;
+    const block = exo.querySelector('.questions-block');
+    if (!block) continue;
+    block.innerHTML = OPEN_QUESTIONS[exoNum].map((q, i) => `
+      <div class="open-question">
+        <div class="open-q-text">❓ ${q}</div>
+        <div class="open-q-hint">Réfléchis à partir du document et de ce que tu as appris dans « Apprendre ».</div>
+      </div>
+    `).join('');
+  }
+}
+
+function setupExosOpen() {
+  document.querySelectorAll('[data-exo]').forEach(exo => {
+    const num = exo.dataset.exo;
+    if (num === '1') return;
+    const btn = exo.querySelector('.btn-show-corr');
+    const corrBlock = exo.querySelector('.correction-block');
+    if (!btn || !corrBlock) return;
+
+    btn.addEventListener('click', () => {
+      const isShown = corrBlock.classList.contains('show');
+      if (!isShown) {
+        const corr = CORRECTIONS[num] || [];
+        corrBlock.innerHTML = `
+          <div class="corr-head">✅ Correction pas à pas — Exercice ${num}</div>
+          ${corr.map((step, i) => `
+            <div class="corr-step">
+              <span class="corr-step-num">Étape ${i + 1}</span>
+              <div class="corr-step-title">${step.title}</div>
+              <div class="corr-step-body">${step.body}</div>
+            </div>
+          `).join('')}
+        `;
+        corrBlock.classList.add('show');
+        btn.textContent = '🔼 Masquer la correction';
+        corrBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        corrBlock.classList.remove('show');
+        btn.textContent = '💡 Afficher la correction pas à pas';
+      }
+    });
+  });
+}
+
+/* -------- Brevet : correction -------- */
+function setupBrevet() {
+  const btn = document.querySelector('.btn-show-corr-brevet');
+  const block = document.querySelector('.correction-brev');
+  if (!btn || !block) return;
+  btn.addEventListener('click', () => {
+    const isShown = block.classList.contains('show');
+    if (!isShown) {
+      block.innerHTML = BREVET_CORRECTION;
+      block.classList.add('show');
+      btn.textContent = '🔼 Masquer la correction';
+      block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      block.classList.remove('show');
+      btn.textContent = '💡 Afficher la correction complète';
+    }
+  });
+}
+</script>
+</body>
+</html>
